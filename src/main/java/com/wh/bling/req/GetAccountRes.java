@@ -9,5 +9,6 @@ import lombok.Data;
 @Data
 public class GetAccountRes{
     private String name;
+    private String account;
     private String upwd;
 }
