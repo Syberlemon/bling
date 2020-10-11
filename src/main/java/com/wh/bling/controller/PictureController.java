@@ -6,7 +6,9 @@ import com.wh.bling.mapper.PictureMapper;
 import com.wh.bling.req.GetAccountReq;
 import com.wh.bling.req.GetAccountRes;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.File;
@@ -29,7 +31,8 @@ public class PictureController {
     private PictureMapper pictureMapper;
 
     @RequestMapping("/getPicture/{id}")
-    public Picture getPicture(String id) {
+    public Picture getPicture(@RequestParam("id")String id) {
+        System.out.println("id:"+id);
         return pictureMapper.getPictureById(id);
     }
 
