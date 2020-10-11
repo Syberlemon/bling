@@ -11,4 +11,5 @@ public class GetAccountRes{
     private String name;
     private String account;
     private String upwd;
+    private String remark;
 }

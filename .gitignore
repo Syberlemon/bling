@@ -1,2 +1,4 @@
-/test
-
+.idea/
+*.iml
+target/
+src/main/resources/application.yml
