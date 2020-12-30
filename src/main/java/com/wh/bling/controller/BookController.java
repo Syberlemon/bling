@@ -12,6 +12,7 @@ import java.util.*;
 /**
  * @author Air
  * Date:  2020/9/3
+ * 是希望对自己的书能够做到一目了然，二刷三刷也能够层层递进，留下总结和收获，不过过一阵子再读还是和新书一样，那之前就真的白读了
  */
 @RestController
 public class BookController {

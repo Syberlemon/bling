@@ -13,6 +13,7 @@ import java.util.List;
 /**
  * @author froid
  * @date 2020/8/25 21:33
+ * 解决经常忘记密码的问题
  */
 @RestController
 public class AccountController {

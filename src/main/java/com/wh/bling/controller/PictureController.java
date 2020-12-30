@@ -1,12 +1,8 @@
 package com.wh.bling.controller;
 
-import com.alibaba.fastjson.JSONObject;
 import com.wh.bling.bean.Picture;
 import com.wh.bling.mapper.PictureMapper;
-import com.wh.bling.req.GetAccountReq;
-import com.wh.bling.req.GetAccountRes;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -24,6 +20,8 @@ import java.util.List;
 /**
  * @author froid
  * @date: 2020/10/12 0:07
+ * 第一步倒是可以存一个相对路径，然后数据库存一下路径前缀，这样来整理照片
+ * 想整理自己的本地照片，打算学一下fastdfs之后，还是用fastdfs搞
  */
 @RestController
 public class PictureController {
