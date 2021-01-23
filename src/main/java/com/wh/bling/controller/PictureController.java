@@ -1,7 +1,12 @@
 package com.wh.bling.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import com.wh.bling.bean.Picture;
+import com.wh.bling.bean.PictureReq;
 import com.wh.bling.mapper.PictureMapper;
+import com.wh.bling.util.BeanUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -16,6 +21,7 @@ import java.nio.file.attribute.BasicFileAttributes;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author froid
@@ -25,16 +31,24 @@ import java.util.List;
  */
 @RestController
 public class PictureController {
+    private Logger log = LoggerFactory.getLogger(this.getClass());
+
     @Autowired
     private PictureMapper pictureMapper;
 
     @RequestMapping("/getPicture/{id}")
     public Picture getPicture(@RequestParam("id")String id) {
-        System.out.println("id:"+id);
         return pictureMapper.getPictureById(id);
     }
 
-    public void addPicture(String filePath) {
+    @RequestMapping("/getPictureList")
+    public List<Picture> getPictureList(@RequestParam("pictureReq") PictureReq pictureReq) {
+        Map<String, Object> params = BeanUtil.beanToMap(pictureReq);
+        return pictureMapper.getAllPicture(params);
+    }
+
+    @RequestMapping("/getPictureByPath")
+    public List<Picture> getPictureByPath(@RequestParam("filePath")String filePath) {
         File file = new File(filePath);
         File[] fileList = file.listFiles();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -47,15 +61,18 @@ public class PictureController {
             try {
                 BasicFileAttributes att = Files.readAttributes(p, BasicFileAttributes.class);
                 picture.setCreateTime(sdf.format(att.creationTime().toMillis()));
-//                System.out.println(JSONObject.toJSONString(picture));
+                log.info(JSONObject.toJSONString(picture));
             } catch (IOException e1) {
                 e1.printStackTrace();
             }
             list.add(picture);
-            if ((i + 1 ) % 100 == 0 || i+1 == fileList.length) {
-                pictureMapper.addPicture(list);
-                list = new ArrayList<>();
-            }
         }
+        return list;
+    }
+
+    @RequestMapping("addPicture")
+    public void addPicture(Picture picture) {
+        pictureMapper.addPicture(picture);
+
     }
 }

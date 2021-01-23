@@ -1,15 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.wh.bling.mapper.PictureMapper">
-    <insert id="addPicture" parameterType="com.wh.bling.bean.Picture">
+    <insert id="batchAddPicture" parameterType="com.wh.bling.bean.Picture">
         insert into tbl_picture(path,createTime) values
         <foreach collection="list" item="item" separator=",">
             (#{item.path},#{item.createTime})
         </foreach>
     </insert>
 
+    <insert id="addPicture" parameterType="com.wh.bling.bean.Picture">
+        insert into tbl_picture(path,createTime, tag, del, remark) values (#{path},#{createTime},#{tag},#{del}, #{remark})
+    </insert>
+
     <select id="getPictureById" resultType="com.wh.bling.bean.Picture" parameterType="java.lang.String">
         select * from tbl_picture where id = #{id}
-<!--        <if test="tag != null">and tag like concat('%',#{tag},'%')</if>-->
+    </select>
+
+    <select id="getAllPicture" resultType="com.wh.bling.bean.Picture" parameterType="java.util.Map">
+        select * from tbl_picture
+        <if test="tag != null">and tag like concat('%',#{tag},'%')</if>
     </select>
 </mapper>

@@ -4,6 +4,7 @@ import com.wh.bling.bean.Picture;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author froid
@@ -11,7 +12,11 @@ import java.util.List;
  */
 @Mapper
 public interface PictureMapper {
-    void addPicture(List<Picture> list);
+    void batchAddPicture(List<Picture> list);
+
+    void addPicture(Picture picture);
 
     Picture getPictureById(String id);
+
+    List<Picture> getAllPicture(Map<String, Object> params);
 }

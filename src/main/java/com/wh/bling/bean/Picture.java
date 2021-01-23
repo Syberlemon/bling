@@ -12,4 +12,6 @@ public class Picture {
     private String path;
     private String createTime;
     private String tag;
+    private String del;
+    private String remark;
 }
